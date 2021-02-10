@@ -79,45 +79,120 @@ IF "%C1%"==" "  (
 :: PARTE4
 ::      Ahora que tenemos la :OPCION1 creada, crea las opciones del 2 al 9, adaptandolas a cada n£mero.
 
+
+IF "%C2%"==" "  (
+    SET C2=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C3%"==" "  (
+    SET C3=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C4%"==" "  (
+    SET C4=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C5%"==" "  (
+    SET C5=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C6%"==" "  (
+    SET C6=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C7%"==" "  (
+    SET C7=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C8%"==" "  (
+    SET C8=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
+
+IF "%C9%"==" "  (
+    SET C9=%Turno%
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
 :: FIN PARTE4
 
 
 :: PARTE5
 ::      Crea la etiqueta CambiarTurno
-
+:CambiarTurno
 ::      Si la variable Turno es igual a O, la variable Turno tomar  el valor de X
 ::      En caso contrario, la variable Turno tomar  el valor de O
+IF "%Turno%"=="0" (  
+    SET Turno=X
+) ELSE (
+    SET Turno=O
+)
 
 ::      Redirecciona a Menu
-
+GOTO Menu
 :: FIN PARTE5
 
 
 :: PARTE6
 ::      Crea la etiqueta CeldaOcupada
-
+:CeldaOcupada
 ::      Limpia la terminal/pantalla
-
+CLS
 ::      Cambia el color a fondo negro y texto en rojo
-
+Color 0C
 ::      Muestra en pantalla un mensaje diciendo que celda en cuesti¢n est  seleccionada. Usa la variable Seleccionada para optener el n£mero de la celda.
-
+ECHO la %Seleccionada% esta ocupada
 ::      Realiza una pausa para que el usuario pueda leer el mensaje.
-
+PAUSE
 ::      Redirecciona a Menu
-
+GOTO Menu
 :: FIN PARTE6
 
 
 :: PARTE7
 ::      Crea la etiqueta VerificarGanador
-
+:VerificarGanador
 :: Horizontales
 ::      Si una de las celdas (C1), no est  vacia...
 ::           Si la primera es igual a la segunda (C1 y C2)...
 ::               Si la primera es igual a la tercera (C1 y C3)...
 ::                   Si todo lo anterior se cumple, ve a la etiqueta Ganador
-
+IF NOT "%C1%"==" " (
+    IF "%C1%"=="%C2%" (
+        IF "%C1%"=="%C3%" (
+            GOTO Ganador
+        )
+    )
+)
 :: FIN PARTE7
 
 
