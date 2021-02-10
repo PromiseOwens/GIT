@@ -62,17 +62,18 @@ GOTO Menu
 ::     Crea la etiqueta OPCION1
 :OPCION1
 ::     Si la celda sea igual a espacio:
-
 ::          Cambia el valor de la celda, asignandole el valor que tiene la variable Turno
 ::          Incrementa el valor de contador en 1
 ::          Redirecciona a VerificarGanador
 ::     Si la celda no es igual a espacio:
 ::          Redirecciona a CeldaOcupada
-IF "%C1%"==  (
+IF "%C1%"==" "  (
     SET C1=%Turno%
-)   ELSE (
-    ECHO La celda %ERRORLEVEL% esta ocupado 
-)
+    SET /A Contador=%Contador%+1
+    GOTO VerificarGanador 
+) ELSE (
+    GOTO CeldaOcupada
+) 
 ::FIN PARTE3
 
 :: PARTE4
