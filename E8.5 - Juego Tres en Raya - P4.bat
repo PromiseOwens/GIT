@@ -7,7 +7,7 @@
 ::      Contador se inicia a 0, Turno se inicia como O y las C como un espacio en blanco.
 
 SET Turno=O
-SET Contador=0 
+SET Contador=0
 SET C1= 
 SET C2= 
 SET C3= 
@@ -44,15 +44,16 @@ CHOICE /C 123456789 /M " Seleccione un casilla "
 ::     Crea una variable llamada Seleccionada que almacene el valor seleccionado
 SET Seleccionada=%ERRORLEVEL% 
 ::     Establece las 9 condiciones, para que cuando se seleccione el 1 el programa se dirija a la etiqueta OPCION1, y as¡ sucesivamente hasta el 9.
-IF %ERRORLEVEL%==1 GOTO OPCION1
-IF %ERRORLEVEL%==2 GOTO OPCION2
-IF %ERRORLEVEL%==3 GOTO OPCION3
-IF %ERRORLEVEL%==4 GOTO OPCION4
-IF %ERRORLEVEL%==5 GOTO OPCION5
-IF %ERRORLEVEL%==6 GOTO OPCION6
-IF %ERRORLEVEL%==7 GOTO OPCION7
-IF %ERRORLEVEL%==8 GOTO OPCION8
-IF %ERRORLEVEL%==9 GOTO OPCION9
+::IF %ERRORLEVEL%==1 GOTO OPCION1
+::IF %ERRORLEVEL%==2 GOTO OPCION2
+::IF %ERRORLEVEL%==3 GOTO OPCION3
+::IF %ERRORLEVEL%==4 GOTO OPCION4
+::IF %ERRORLEVEL%==5 GOTO OPCION5
+::IF %ERRORLEVEL%==6 GOTO OPCION6
+::IF %ERRORLEVEL%==7 GOTO OPCION7
+::IF %ERRORLEVEL%==8 GOTO OPCION8
+::IF %ERRORLEVEL%==9 GOTO OPCION9
+GOTO OPCION%ERRORLEVEL%
 :: Redirecciona a Menu
 GOTO Menu
 :: FIN PARTE2
@@ -67,35 +68,39 @@ GOTO Menu
 ::          Redirecciona a VerificarGanador
 ::     Si la celda no es igual a espacio:
 ::          Redirecciona a CeldaOcupada
-IF "%C1%"==" "  (
+IF "%C1%"==" " (
     SET C1=%Turno%
     SET /A Contador=%Contador%+1
-    GOTO VerificarGanador 
+    GOTO VerificarGanador
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+
 ::FIN PARTE3
 
 :: PARTE4
 ::      Ahora que tenemos la :OPCION1 creada, crea las opciones del 2 al 9, adaptandolas a cada n£mero.
-
-
-IF "%C2%"==" "  (
+:OPCION2
+IF "%C2%"==" " (
     SET C2=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
-IF "%C3%"==" "  (
+:OPCION3
+IF "%C3%"==" " (
     SET C3=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
+:OPCION4
 IF "%C4%"==" "  (
     SET C4=%Turno%
     SET /A Contador=%Contador%+1
@@ -103,46 +108,57 @@ IF "%C4%"==" "  (
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
-IF "%C5%"==" "  (
+:OPCION5
+IF "%C5%"==" " (
     SET C5=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
-IF "%C6%"==" "  (
+:OPCION6
+IF "%C6%"==" " (
     SET C6=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
-IF "%C7%"==" "  (
+:OPCION7
+IF "%C7%"==" " (
     SET C7=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
-IF "%C8%"==" "  (
+:OPCION8
+IF "%C8%"==" " (
     SET C8=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 
-IF "%C9%"==" "  (
+:OPCION9
+IF "%C9%"==" " (
     SET C9=%Turno%
     SET /A Contador=%Contador%+1
     GOTO VerificarGanador 
 ) ELSE (
     GOTO CeldaOcupada
 ) 
+GOTO Menu
 :: FIN PARTE4
 
 
@@ -151,7 +167,7 @@ IF "%C9%"==" "  (
 :CambiarTurno
 ::      Si la variable Turno es igual a O, la variable Turno tomar  el valor de X
 ::      En caso contrario, la variable Turno tomar  el valor de O
-IF "%Turno%"=="0" (  
+IF "%Turno%"=="O" (  
     SET Turno=X
 ) ELSE (
     SET Turno=O
@@ -186,34 +202,37 @@ GOTO Menu
 ::           Si la primera es igual a la segunda (C1 y C2)...
 ::               Si la primera es igual a la tercera (C1 y C3)...
 ::                   Si todo lo anterior se cumple, ve a la etiqueta Ganador
-IF NOT "%C1%"==" " (
-    IF "%C1%"=="%C2%" (
-        IF "%C1%"=="%C3%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C1%"==" " (
+    ::IF "%C1%"=="%C2%" (
+        ::IF "%C1%"=="%C3%" (
+            ::GOTO Ganador
+        ::)
+    ::)
+::)
+IF "%C1%%C2%%C3%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 :: FIN PARTE7
 
 
 :: PARTE8
 ::     Una vez terminada la PARTE7, ahora crea las otras horizontales.
 ::     (C4, C5, C6)
-IF NOT "%C4%"==" " (
-    IF "%C4%"=="%C5%" (
-        IF "%C4%"=="%C6%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C4%"==" " (
+    ::IF "%C4%"=="%C5%" (
+        ::IF "%C4%"=="%C6%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C4%%C5%%C6%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 ::     (C7, C8, C9)
-IF NOT "%C7%"==" " (
-    IF "%C7%"=="%C8%" (
-        IF "%C7%"=="%C9%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C7%"==" " (
+    ::IF "%C7%"=="%C8%" (
+        ::IF "%C7%"=="%C9%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C7%%C8%%C9%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 :: FIN PARTE8
 
 
@@ -221,29 +240,32 @@ IF NOT "%C7%"==" " (
 :: PARTE9
 ::      Una vez terminada la PARTE7, ahora crea las Verticales.
 ::      (C1, C4, C7)
-IF NOT "%C1%"==" " (
-    IF "%C1%"=="%C4%" (
-        IF "%C1%"=="%C7%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C1%"==" " (
+    ::IF "%C1%"=="%C4%" (
+        ::IF "%C1%"=="%C7%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C1%%C4%%C7%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 ::      (C2, C5, C8)
-IF NOT "%C2%"==" " (
-    IF "%C2%"=="%C5%" (
-        IF "%C2%"=="%C8%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C2%"==" " (
+    ::IF "%C2%"=="%C5%" (
+        ::IF "%C2%"=="%C8%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C2%%C5%%C8%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 ::      (C3, C6, C9)
-IF NOT "%C3%"==" " (
-    IF "%C3%"=="%C6%" (
-        IF "%C3%"=="%C9%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C3%"==" " (
+    ::IF "%C3%"=="%C6%" (
+        ::IF "%C3%"=="%C9%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C3%%C6%%C9%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 :: FIN PARTE9
 
 
@@ -251,64 +273,74 @@ IF NOT "%C3%"==" " (
 :: PARTE10
 ::      Una vez terminada la PARTE7, ahora crea las diagonales.
 ::      (C1, C5, C9)
-IF NOT "%C1%"==" " (
-    IF "%C1%"=="%C5%" (
-        IF "%C1%"=="%C9%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C1%"==" " (
+    ::IF "%C1%"=="%C5%" (
+        ::IF "%C1%"=="%C9%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C1%%C5%%C9%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 ::      (C3, C5, C7)
-IF NOT "%C3%"==" " (
-    IF "%C3%"=="%C5%" (
-        IF "%C3%"=="%C7%" (
-            GOTO Ganador
-        )
-    )
-)
+::IF NOT "%C3%"==" " (
+    ::IF "%C3%"=="%C5%" (
+        ::IF "%C3%"=="%C7%" (
+            ::GOTO Ganador 
+        ::)
+    ::)
+::)
+IF "%C3%%C5%%C7%"=="%Turno%%Turno%%Turno%" GOTO Ganador
 :: FIN PARTE10
 
 
 :: Verifica si hay empate
 :: PARTE11
 ::      Si Contador a llegado a 9, redirecciona a la etiqueta Empate.
-
+IF "%Contador%"=="9" (
+    GOTO Empate
+    )
 ::      Finalmente, redirecciona a CambiarTurno. (C¢mo no hay ni ganador, ni empate, cambiamos el turno).
-
+GOTO CambiarTurno
 :: FIN PARTE11
 
 
 :: PARTE12
 ::      Crea la etiqueta Ganador
-
+:Ganador
 ::      Limpia la terminal/pantalla
-
+CLS
 ::      Cambia el color a negro y verde
-
+Color 0A
 ::      Pon dos l¡neas en blanco
-
+ECHO.
+ECHO.
 ::      Muestra un mensaje diciendo que turno es el ganador.
-
+ECHO %Turno% congratulation you are the winner
 ::      Pon dos l¡neas en blanco
-
+ECHO.
+ECHO.
+PAUSE
 ::      Redirecciona a Inicio
-
+GOTO Inicio
 :: FIN PARTE12
 
 
 :: PARTE13
 ::      Crea la etiqueta Empate
-
+:Empate
 ::      Limpia la terminal/pantalla
-
+CLS
 ::      Cambia el color a negro y azul
-
+Color 09
 ::      Pon dos l¡neas en blanco
-
+ECHO.
+ECHO.
 ::      Muestra un mensaje diciendo que se ha producido un empate.
-
+ECHO Draw
 ::      Pon dos l¡neas en blanco
-
+ECHO.
+ECHO.
+PAUSE
 ::      Redirecciona a Inicio
-
+GOTO Inicio
 :: FIN PARTE13
