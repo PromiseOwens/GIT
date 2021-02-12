@@ -199,9 +199,21 @@ IF NOT "%C1%"==" " (
 :: PARTE8
 ::     Una vez terminada la PARTE7, ahora crea las otras horizontales.
 ::     (C4, C5, C6)
-
+IF NOT "%C4%"==" " (
+    IF "%C4%"=="%C5%" (
+        IF "%C4%"=="%C6%" (
+            GOTO Ganador
+        )
+    )
+)
 ::     (C7, C8, C9)
-
+IF NOT "%C7%"==" " (
+    IF "%C7%"=="%C8%" (
+        IF "%C7%"=="%C9%" (
+            GOTO Ganador
+        )
+    )
+)
 :: FIN PARTE8
 
 
@@ -209,11 +221,29 @@ IF NOT "%C1%"==" " (
 :: PARTE9
 ::      Una vez terminada la PARTE7, ahora crea las Verticales.
 ::      (C1, C4, C7)
-
+IF NOT "%C1%"==" " (
+    IF "%C1%"=="%C4%" (
+        IF "%C1%"=="%C7%" (
+            GOTO Ganador
+        )
+    )
+)
 ::      (C2, C5, C8)
-
+IF NOT "%C2%"==" " (
+    IF "%C2%"=="%C5%" (
+        IF "%C2%"=="%C8%" (
+            GOTO Ganador
+        )
+    )
+)
 ::      (C3, C6, C9)
-
+IF NOT "%C3%"==" " (
+    IF "%C3%"=="%C6%" (
+        IF "%C3%"=="%C9%" (
+            GOTO Ganador
+        )
+    )
+)
 :: FIN PARTE9
 
 
@@ -221,9 +251,21 @@ IF NOT "%C1%"==" " (
 :: PARTE10
 ::      Una vez terminada la PARTE7, ahora crea las diagonales.
 ::      (C1, C5, C9)
-
+IF NOT "%C1%"==" " (
+    IF "%C1%"=="%C5%" (
+        IF "%C1%"=="%C9%" (
+            GOTO Ganador
+        )
+    )
+)
 ::      (C3, C5, C7)
-
+IF NOT "%C3%"==" " (
+    IF "%C3%"=="%C5%" (
+        IF "%C3%"=="%C7%" (
+            GOTO Ganador
+        )
+    )
+)
 :: FIN PARTE10
 
 
